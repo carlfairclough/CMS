@@ -1,0 +1,10 @@
+----
+Template:
+Default
+----
+Title:
+404!!!!!!
+----
+Content:
+404! Lorem ipsum si dolor et amet, nunc habitasse et portitor demi
+----

@@ -1,0 +1,10 @@
+----
+Template:
+Default
+----
+Title:
+Homepage Header
+----
+Content:
+Homepage content
+----

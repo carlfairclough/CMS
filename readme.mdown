@@ -1,0 +1,38 @@
+# Fluff CMS
+(or whatever I decide to call it)
+
+This is a file based CMS with no database.
+Advantages over other static CMS systems as it's incredibly incredibly simple
+Upload & go.
+
+## WIP
+
+This is a work in progress, very basic features are here, but more need to be added to it to improve the system.
+
+### So far you can:
+
+- Create a homepage template
+- Create a 404 template
+- Create pages that are in the main directory, i.e. http://yoursite.com/page
+- Create pages that appear in the main menu – these have to be follow the format of 01_page-name, 02_other-page, etc
+- Define a custom variable in the page.txt file, and call it using  echo get_content('variable_name');
+
+### What needs to be done:
+
+- Error handling for pages
+- Last item in main menu is repeating and shouldn't be
+- Sub-pages
+- Make work in a folder or a subdomain
+- Web-based front end
+- Support for markdown
+- Support for multi-line variables (this is mainly for content-writing)
+- Gallery features
+- Facilitate plugins & custom functions
+
+## Want to help?
+contact@carlfairclough.me
+
+## Copyright
+
+© 2014 Carl Fairclough
+<http://carlfairclough.me>

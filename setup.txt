@@ -1,0 +1,31 @@
+----
+Theme:
+Default
+----
+Site Name:
+Carl Fairclough's CMS
+----
+Site Description:
+New custom CMS designed & built by Carl Fairclough
+----
+Your Name:
+Carl Fairclough
+----
+Your City:
+Manchester
+----
+Your Country:
+United Kingdom
+----
+Your Email:
+contact@carlfairclough.me
+----
+Your Twitter:
+@carlfairclough
+----r
+Header:
+Website of Carl Fairlcough
+----
+Footer:
+Designed & built in a dark room by Carl Fairclough
+----
