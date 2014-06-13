@@ -1,0 +1,10 @@
+----
+Template:
+Portfolio
+----
+Title:
+This is the portfolio page
+----
+Content:
+Lorem ipsum si dolor et amet, nunc habitasse et portitor demi
+----

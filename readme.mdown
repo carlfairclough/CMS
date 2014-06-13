@@ -13,8 +13,10 @@ This is a work in progress, very basic features are here, but more need to be ad
 
 * Create a homepage template
 * Create a 404 template
+	* 404 is served if the directory doesn't exist, or if the page.txt doesn't exist
 * Create pages that are in the main directory, i.e. http://yoursite.com/page
-* Create pages that appear in the main menu – these have to be follow the format of 01_page-name, 02_other-page, etc
+	* Pages that in the main menu follow the format of 01_page-name, 02_other-page
+	* All pages without the ##_ prefix will not be in the menu
 * Multi-line content (must be formatted in HTML to display properly, otherwise it's spat out as a single line)
 * Custom variables
 	* Case insensitive
@@ -23,8 +25,7 @@ This is a work in progress, very basic features are here, but more need to be ad
 
 ### What needs to be done:
 
-* Error handling for pages
-* Last item in main menu is repeating and shouldn't be
+* Error handling
 * Sub-pages
 * Make work in a folder or a subdomain
 * Web-based front end

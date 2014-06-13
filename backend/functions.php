@@ -141,7 +141,9 @@
 		if ( is_numeric(substr($folder, 0, 2)) && $folder[2] == '_') {
 			$new_folder = $folder;
 			$page_name = substr($new_folder, 3);
-			unset ($folder);
+		} else {
+			unset($new_folder);
+			unset($page_name);
 		}
 
 		$page_vis_name = str_replace('-', ' ', str_replace('_', ' ', $page_name));
@@ -154,32 +156,42 @@
 
 
 
-	foreach ($root_pages as $root_page) {
-		
-		$folder = basename($root_page);
 
-		if (empty($request)) {
-			$page_lines = file(root.'/pages/home/page.txt');
-			break;
-		// 
-		} else if ( is_numeric(substr($folder, 0, 2)) && $folder[2] == '_' && $request == substr($folder, 3)) {
+	// Check request url, does it exist?
+	foreach ($root_pages as $root_page) {
+
+		$folder = basename($root_page);
+		$desired_request = substr($folder, 3);
+
+		// page in menu
+		if ($folder[2] == '_' && is_numeric(substr($folder, 0, 1) ) && $request == $desired_request ) {
 			$page_lines = file(root.'/pages/'.$folder.'/page.txt');
+			$dir_exists = true;
 			break;
-		// Nope, so does it exist at all?
-		} else if ( $folder == $request ){
+
+		// page not in menu
+		} else if ($folder == $request) {
 			$page_lines = file(root.'/pages/'.$folder.'/page.txt');
-			break;
-		// Nope – is it the homepage?
+			$dir_exists = true;
+		
+		// homepage
 		} else if (empty($request)) {
-			echo 'homepage';
 			$page_lines = file(root.'/pages/home/page.txt');
-			break;
-		// Must be a 404 page then
-		} else {
-			$page_lines = file(root.'/pages/404/page.txt');
+			$dir_exists = true;
 			break;
 		}
+
 	}
+
+	// 404, folder doesnt exist / page.txt doesn't exist
+	if ($page_lines == 0 && $dir_exists) {
+		// page.txt doesn't exist
+		$page_lines = file(root.'/pages/404/page.txt');
+	} else if ($page_lines == 0) {
+		// folder does not exist, genuine 404
+		$page_lines = file(root.'/pages/404/page.txt');
+	}
+
 
 
 

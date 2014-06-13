@@ -1,0 +1,10 @@
+----
+Template:
+Default
+----
+Title:
+This is a hidden page
+----
+Content:
+Lorem ipsum si dolor et amet, nunc habitasse et portitor demi
+----
