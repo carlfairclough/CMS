@@ -11,26 +11,26 @@ This is a work in progress, very basic features are here, but more need to be ad
 
 ### So far you can:
 
-- Create a homepage template
-- Create a 404 template
-- Create pages that are in the main directory, i.e. http://yoursite.com/page
-- Create pages that appear in the main menu – these have to be follow the format of 01_page-name, 02_other-page, etc
-- Multi-line content (must be formatted in HTML to display properly, otherwise it's spat out as a single line)
-- Custom variables
--- Case insensitive
--- Set global variables within the setup.txt file, call them using get_settings('vAriAbLe name');
--- Set page-specific variables in the page.txt file, call them using get_content('vAriAbLe name');
+* Create a homepage template
+* Create a 404 template
+* Create pages that are in the main directory, i.e. http://yoursite.com/page
+* Create pages that appear in the main menu – these have to be follow the format of 01_page-name, 02_other-page, etc
+* Multi-line content (must be formatted in HTML to display properly, otherwise it's spat out as a single line)
+* Custom variables
+	* Case insensitive
+	* Set global variables within the setup.txt file, call them using get_settings('vAriAbLe name');
+	* Set page-specific variables in the page.txt file, call them using get_content('vAriAbLe name');
 
 ### What needs to be done:
 
-- Error handling for pages
-- Last item in main menu is repeating and shouldn't be
-- Sub-pages
-- Make work in a folder or a subdomain
-- Web-based front end
-- Support for markdown
-- Gallery features
-- Facilitate plugins & custom functions
+* Error handling for pages
+* Last item in main menu is repeating and shouldn't be
+* Sub-pages
+* Make work in a folder or a subdomain
+* Web-based front end
+* Support for markdown
+* Gallery features
+* Facilitate plugins & custom functions
 
 ## Want to help?
 contact@carlfairclough.me
