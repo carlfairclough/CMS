@@ -15,8 +15,9 @@ This is a work in progress, very basic features are here, but more need to be ad
 - Create a 404 template
 - Create pages that are in the main directory, i.e. http://yoursite.com/page
 - Create pages that appear in the main menu – these have to be follow the format of 01_page-name, 02_other-page, etc
-- Define a custom variable in the page.txt file, and call it using  echo get_content('variable_name');
+- Define a custom variable in the page.txt file, and call it using  get_content('variable name');
 - Multi-line content (must be formatted in HTML to display properly, otherwise it's spat out as a single line)
+- Set custom global variables within the setup file, call them using get_settings('variable name');
 
 ### What needs to be done:
 
@@ -28,6 +29,7 @@ This is a work in progress, very basic features are here, but more need to be ad
 - Support for markdown
 - Gallery features
 - Facilitate plugins & custom functions
+- Make calling variables case-insensitive
 
 ## Want to help?
 contact@carlfairclough.me

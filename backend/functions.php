@@ -28,69 +28,54 @@
 	// READ THE SETUP FILE AND GET ALL VARIABLES AT ONCE
 	$setupFile = $root.'/setup.txt';
 	$setup_lines = file($setupFile);
+	$setup_lines_string = implode (',', $setup_lines);
+	// define it to call it in the function later
+	define(setup_lines_string, $setup_lines_string);
 
-	foreach($setup_lines as $line_num => $line) {
-		if ( strstr ( $line, 'Theme' ) ) {
-			$theme_line_num = (int)$line_num + 1;
-		} else if ( $line_num == $theme_line_num && $line_num != 0 ) { 
-			$theme_name = trim($line);
-		} else if ( strstr ( $line, 'Site Name' ) ) {
-			$sitename_line_num = (int)$line_num + 1;
-		} else if ( $line_num == $sitename_line_num && $line_num != 0 ) { 
-			$site_name = trim($line);
-		} else if ( strstr ( $line, 'Site Description' ) ) {
-			$sitedesc_line_num = (int)$line_num + 1;
-		} else if ( $line_num == $sitedesc_line_num && $line_num != 0 ) { 
-			$site_description = trim($line);
-		} else if ( strstr ( $line, 'Your Name' ) ) {
-			$yourname_line_num = (int)$line_num + 1;
-		} else if ( $line_num == $yourname_line_num && $line_num != 0 ) { 
-			$your_name = trim($line);
-		} else if ( strstr ( $line, 'Your City' ) ) {
-			$yourcity_line_num = (int)$line_num + 1;
-		} else if ( $line_num == $yourcity_line_num && $line_num != 0 ) { 
-			$your_city = trim($line);
-		} else if ( strstr ( $line, 'Your Country' ) ) {
-			$yourcountry_line_num = (int)$line_num + 1;
-		} else if ( $line_num == $yourcountry_line_num && $line_num != 0 ) { 
-			$your_country = trim($line);
-		} else if ( strstr ( $line, 'Your Email' ) ) {
-			$youremail_line_num = (int)$line_num + 1;
-		} else if ( $line_num == $youremail_line_num && $line_num != 0 ) { 
-			$your_email = trim($line);
-		} else if ( strstr ( $line, 'Your Twitter' ) ) {
-			$yourtwitter_line_num = (int)$line_num + 1;
-		} else if ( $line_num == $yourtwitter_line_num && $line_num != 0 ) { 
-			$your_twitter = trim($line);
-		} else if ( strstr ( $line, 'Header' ) ) {
-			$header_line_num = (int)$line_num + 1;
-		} else if ( $line_num == $header_line_num && $line_num != 0 ) { 
-			$header = trim($line);
-		} else if ( strstr ( $line, 'Footer' ) ) {
-			$footer_line_num = (int)$line_num + 1;
-		} else if ( $line_num == $footer_line_num && $line_num != 0 ) { 
-			$footer = trim($line);
-			break;
+	function get_settings($term) {
+		// convert string back to array
+		$setup_lines_array = explode(',' , setup_lines_string);
+
+		// create blank array for the output
+		$setup_multi_lines = array();
+
+		// Find out the first line
+		foreach($setup_lines_array as $line_num => $line) {
+
+			if ( 0 === strpos($line, $term) ) {
+				$start_line_num = (int)$line_num + 1;
+				$term_line_num = (int)$line_num + 1;
+				break;
+			}
+		};
+
+		// Read the relevant lines and put into array
+		foreach($setup_lines_array as $line_num => $line) {
+
+			if ( (int)$line_num >= (int)$start_line_num) {
+
+				// break at the end
+				if ( 0 === strpos($line, '----') ) {
+					break;
+				}
+				$setup_multi_lines[] = $line;
+			}
 		}
+
+		// array to string & strip whitespace
+		return trim(implode($setup_multi_lines, ''));
 	}
 
 
-
-
-
-	// KEY VARIABLES;
-	// $theme_name
-	// $site_name
-	// $site_description
-	// $your_name
-	// $your_city
-	// $your_email
-	// $your_twitter
-	// $site_name
-	// $header
-	// $footer
-
-
+	// Quick access vars
+	$theme_name = get_settings('Theme');
+	$site_name = get_settings('Site Name');
+	$site_description = get_settings('Site Description');
+	$your_name = get_settings('Your Name');
+	$your_city = get_settings('Your City');
+	$your_country = get_settings('Your Country');
+	$your_email = get_settings('Your Email');
+	$your_twitter = get_settings('Your Twitter');
 
 
 
