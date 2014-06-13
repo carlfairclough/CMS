@@ -25,6 +25,10 @@
 
 
 
+
+
+
+
 	// READ THE SETUP FILE AND GET ALL VARIABLES AT ONCE
 	$setupFile = $root.'/setup.txt';
 	$setup_lines = file($setupFile);
@@ -42,7 +46,7 @@
 		// Find out the first line
 		foreach($setup_lines_array as $line_num => $line) {
 
-			if ( 0 === strpos($line, $term) ) {
+			if ( 0 === strpos(strtolower($line), strtolower($term)) ) {
 				$start_line_num = (int)$line_num + 1;
 				$term_line_num = (int)$line_num + 1;
 				break;
@@ -67,6 +71,9 @@
 	}
 
 
+
+
+
 	// Quick access vars
 	$theme_name = get_settings('Theme');
 	$site_name = get_settings('Site Name');
@@ -76,6 +83,9 @@
 	$your_country = get_settings('Your Country');
 	$your_email = get_settings('Your Email');
 	$your_twitter = get_settings('Your Twitter');
+
+
+
 
 
 
@@ -189,7 +199,7 @@
 		// Find out the first line
 		foreach($page_lines_array as $line_num => $line) {
 
-			if ( 0 === strpos($line, $term) ) {
+			if ( 0 === strpos(strtolower($line), strtolower($term)) ) {
 				$start_line_num = (int)$line_num + 1;
 				$term_line_num = (int)$line_num + 1;
 				break;
