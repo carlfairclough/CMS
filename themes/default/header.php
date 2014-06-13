@@ -4,7 +4,8 @@
 		<link href="<?php echo theme_url_loc(); ?>/style.css" media="screen" rel="stylesheet" type="text/css" />
 	</head>
 
-	<body><header>
+	<body class="<?php insert_body_classes(); ?>">
+		<header>
 		<nav>
 			<p><?php echo $header; ?></p>
 			<?php echo $get_main_nav ?>

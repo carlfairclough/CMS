@@ -1,10 +1,12 @@
 html, body {
 	padding: 0;
 	margin:0;
+	background:#F7F7F7;
 }
 
 body {
 	font-family: Arial, Helvetica;
+	padding:20px;
 }
 
 header {
@@ -13,4 +15,18 @@ header {
 
 footer {
 	background: pink;
+}
+
+nav ul {
+	list-style: none;
+	overflow: hidden;
+	margin:0;
+	padding:0;
+}
+
+nav ul li {
+	float:left;
+	margin:0;
+	padding:0;
+	padding-right:10px;
 }

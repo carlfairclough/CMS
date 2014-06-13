@@ -14,7 +14,7 @@
 
 	// FIND OUT WHAT THE CURRENT URL REQ IS
 	$request =	rtrim(strtok(strtolower($_SERVER[REQUEST_URI]), '?'), '/');
-	
+	define (request, $request);
 
 
 
@@ -129,6 +129,11 @@
 	// Get variables for page requested before including the template
 	$root_pages = glob(root.'/pages/*');
 	$request =  trim($request, '/');
+	define(request, $request);
+
+
+
+
 
 
 	// Main navigation links
@@ -183,8 +188,6 @@
 
 
 
-
-
 	
 	// convert page txt file to a string
 	$page_lines_string = implode (',', $page_lines);
@@ -195,18 +198,63 @@
 		// convert string back to array
 		$page_lines_array = explode(',' , page_lines_string);
 
+		// create blank array for the output
+		$multi_lines = array();
+
+		// Find out the first line
 		foreach($page_lines_array as $line_num => $line) {
-			if ( strstr ( $line, $term ) ) {
+
+			if ( 0 === strpos($line, $term) ) {
+				$start_line_num = (int)$line_num + 1;
 				$term_line_num = (int)$line_num + 1;
-			} else if ( $line_num == $term_line_num && $line_num != 0 ) { 
-				$return_term = trim($line);
-				return $return_term;
+				break;
 			}
 		};
-		
+
+		// Read the relevant lines and put into array
+		foreach($page_lines_array as $line_num => $line) {
+
+			if ( (int)$line_num >= (int)$start_line_num) {
+
+				// break at the end
+				if ( 0 === strpos($line, '----') ) {
+					break;
+				}
+				$multi_lines[] = $line;
+			}
+		}
+
+		// array to string & strip whitespace
+		return trim(implode($multi_lines, ''));
 	}
 
-	
+
+	// is_home
+	function is_home() {
+		$return = false;
+		if (empty(request)) {
+			$return = 'true';
+		} else {
+			$return = 'false';
+		};
+
+		return $return;
+	};
+
+
+
+	// body classes
+	function insert_body_classes() {
+		$classes=' ';
+		if (is_home()) {
+			$classes = 'homepage home index template-'.get_content('Template');
+		} else {
+			$classes = request.' '.get_content('Template');
+		}
+		echo $classes;
+	}
+
+
 
 
 
