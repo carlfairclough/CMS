@@ -16,6 +16,7 @@
 	$request =	rtrim(strtok(strtolower($_SERVER[REQUEST_URI]), '?'), '/');
 	define (request, $request);
 
+	$request_depth = count(explode('/', $request)) - 1;
 
 
 
@@ -156,31 +157,48 @@
 
 
 
-
 	// Check request url, does it exist?
 	foreach ($root_pages as $root_page) {
 
 		$folder = basename($root_page);
 		$desired_request = substr($folder, 3);
 
-		// page in menu
-		if ($folder[2] == '_' && is_numeric(substr($folder, 0, 1) ) && $request == $desired_request ) {
+		if ($request_depth == 1) {
+
+			if ($folder[2] == '_' && is_numeric(substr($folder, 0, 1) ) && $request == $desired_request) {
 			$page_lines = file(root.'/pages/'.$folder.'/page.txt');
 			$dir_exists = true;
 			break;
 
-		// page not in menu
-		} else if ($folder == $request) {
-			$page_lines = file(root.'/pages/'.$folder.'/page.txt');
-			$dir_exists = true;
+			// page not in menu
+			} else if ($folder == $request) {
+				$page_lines = file(root.'/pages/'.$folder.'/page.txt');
+				$dir_exists = true;
+			
+			// homepage
+			} else if (empty($request)) {
+				$page_lines = file(root.'/pages/home/page.txt');
+				$dir_exists = true;
+				break;
+			}
 		
-		// homepage
-		} else if (empty($request)) {
-			$page_lines = file(root.'/pages/home/page.txt');
-			$dir_exists = true;
-			break;
-		}
+		// second level deep
+		} else if ($request_depth == 2) {
 
+			$url_array = explode('/', request);
+			$request = $url_array[1];
+
+			// does root folder exist?
+			if ($folder[2] == '_' && is_numeric(substr($folder, 0, 1) ) && $request == $desired_request) {
+				$page_lines = file(root.'/pages/'.$folder.'/'.$url_array[2].'/page.txt');
+				$dir_exists = true;
+				break;
+			} else if ($folder == $request) {
+				$page_lines = file(root.'/pages/'.$folder.'/'.$url_array[2].'/page.txt');
+				$dir_exists = true;
+			}
+
+		}
 	}
 
 	// 404, folder doesnt exist / page.txt doesn't exist
