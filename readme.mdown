@@ -17,7 +17,8 @@ This is a work in progress, very basic features are here, but more need to be ad
 * Create pages that are in the main directory, i.e. http://yoursite.com/page
 	* Pages that in the main menu follow the format of 01_page-name, 02_other-page
 	* All pages without the ##_ prefix will not be in the menu
-* Multi-line content (must be formatted in HTML to display properly, otherwise it's spat out as a single line)
+* Multi-line content (uses PHP_EOL)
+	* Can return content as markdown using print_markdown('vAriAbLe name')
 * Custom variables
 	* Case insensitive
 	* Set global variables within the setup.txt file, call them using get_settings('vAriAbLe name');
@@ -36,7 +37,6 @@ This is a work in progress, very basic features are here, but more need to be ad
 	* Create an alternate menu function that builds a gallery from compatible subdirectories
 * Make work in a folder or a subdomain
 * Web-based front end
-* Support for markdown
 * Facilitate plugins & custom functions
 
 ## Want to help?

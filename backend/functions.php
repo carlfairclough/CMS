@@ -334,7 +334,7 @@
 		}
 
 		// array to string & strip whitespace
-		return trim(implode($multi_lines, ''));
+		return trim(implode(PHP_EOL, $multi_lines));
 	}
 
 
@@ -374,8 +374,19 @@
 	// $title
 	// $content
 
+	
+
+	// Markdown support!
+	include_once('parsedown.php');
+	function print_markdown($term) {
+		$markdown = new Parsedown();
+		echo $markdown->text(get_content($term));
+	}
 
 
+
+
+	
 
 	// BUILD THE PAGES
 	// include header first
