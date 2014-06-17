@@ -157,58 +157,142 @@
 
 
 
-	// Check request url, does it exist?
-	foreach ($root_pages as $root_page) {
 
-		$folder = basename($root_page);
-		$desired_request = substr($folder, 3);
+	// get URL (supports https) 
+	function curPageURL() {
+		$pageURL = 'http';
+		if ($_SERVER["HTTPS"] == "on") {
+			$pageURL .= "s";
+		}
+	 	$pageURL .= "://";
+	 	if ($_SERVER["SERVER_PORT"] != "80") {
+	  		$pageURL = $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+	 	} else {
+	  		$pageURL = $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+	 	}
+	 	return $pageURL;
+	}
 
-		if ($request_depth == 1) {
+	$curPageURL = rtrim(ltrim(curPageURL(), '/'), '/');
+	$page_url_array = ( explode('/', $curPageURL ) );
+	$page_url_count = count($page_url_array);
 
-			if ($folder[2] == '_' && is_numeric(substr($folder, 0, 1) ) && $request == $desired_request) {
-			$page_lines = file(root.'/pages/'.$folder.'/page.txt');
-			$dir_exists = true;
-			break;
 
-			// page not in menu
-			} else if ($folder == $request) {
-				$page_lines = file(root.'/pages/'.$folder.'/page.txt');
-				$dir_exists = true;
-			
+		if ($page_url_count == 1) {
 			// homepage
-			} else if (empty($request)) {
-				$page_lines = file(root.'/pages/home/page.txt');
-				$dir_exists = true;
-				break;
+			$page_lines = file(root.'/pages/home/page.txt');
+			$dir_exists = true;
+
+		} else if ($page_url_count == 2) {
+
+			foreach ($root_pages as $root_page) {
+				$folder = basename($root_page);
+				$desired_request = substr($folder, 3);
+				// page in menu
+				if ($folder[2] == '_' && is_numeric(substr($folder, 0, 2) ) && $request == $desired_request) {
+					$page_lines = file(root.'/pages/'.$folder.'/page.txt');
+					$dir_exists = true;
+					break;
+				// page not in menu
+				} else if ($folder == $request) {
+					$page_lines = file(root.'/pages/'.$folder.'/page.txt');
+					$dir_exists = true;
+					break;
+				}
 			}
-		
-		// second level deep
-		} else if ($request_depth == 2) {
+
+		} else if ($page_url_count == 3) {
 
 			$url_array = explode('/', request);
 			$request = $url_array[1];
+			$request_ii = $url_array[2];
 
-			// does root folder exist?
-			if ($folder[2] == '_' && is_numeric(substr($folder, 0, 1) ) && $request == $desired_request) {
-				$page_lines = file(root.'/pages/'.$folder.'/'.$url_array[2].'/page.txt');
-				$dir_exists = true;
-				break;
-			} else if ($folder == $request) {
-				$page_lines = file(root.'/pages/'.$folder.'/'.$url_array[2].'/page.txt');
-				$dir_exists = true;
+			foreach ($root_pages as $root_page) {
+				$folder = basename($root_page);
+				$desired_request = substr($folder, 3);
+				$next_level_dirs = glob(root.'/pages/'.$folder.'/*');
+
+				// does root folder exist?
+				if ($folder[2] == '_' && is_numeric(substr($folder, 0, 2) ) && $request == $desired_request ) {
+					
+					foreach ($next_level_dirs as $next_level_dir) {
+						$folder_ii = basename($next_level_dir);
+						$desired_request_ii = substr($folder_ii, 3);
+						if ( $folder_ii[2] == '_' && is_numeric(substr($folder_ii, 0, 2))  && $request_ii == $desired_request_ii ) {
+							$page_lines = file(root.'/pages/'.$folder.'/'.$folder_ii.'/page.txt');
+							$dir_exists = true;
+							break;
+						} else if ($folder_ii == $request_ii){
+							$page_lines = file(root.'/pages/'.$folder.'/'.$folder_ii.'/page.txt');
+							$dir_exists = true;
+							break;
+						}
+					}
+
+				} else if ($folder == $request) {
+
+					foreach ($next_level_dirs as $next_level_dir) {
+						$folder_ii = basename($next_level_dir);
+						$desired_request_ii = substr($folder_ii, 3);
+						if ( $folder_ii[2] == '_' && is_numeric(substr($folder_ii, 0, 2))  && $request_ii == $desired_request_ii ) {
+							$page_lines = file(root.'/pages/'.$folder.'/'.$folder_ii.'/page.txt');
+							$dir_exists = true;
+							break;
+						} else if ($folder_ii == $request_ii){
+							$page_lines = file(root.'/pages/'.$folder.'/'.$folder_ii.'/page.txt');
+							$dir_exists = true;
+							break;
+						}
+					}
+				}
 			}
 
-		}
-	}
 
-	// 404, folder doesnt exist / page.txt doesn't exist
-	if ($page_lines == 0 && $dir_exists) {
-		// page.txt doesn't exist
-		$page_lines = file(root.'/pages/404/page.txt');
-	} else if ($page_lines == 0) {
-		// folder does not exist, genuine 404
-		$page_lines = file(root.'/pages/404/page.txt');
-	}
+		} else if ($page_url_count = '4') {
+
+		} else if ($page_url_count = '5') {
+
+		}
+
+		// 404, folder doesnt exist / page.txt doesn't exist
+		if ($page_lines == 0 && $dir_exists) {
+			// page.txt doesn't exist
+			$page_lines = file(root.'/pages/404/page.txt');
+		} else if ($page_lines == 0) {
+			// folder does not exist, genuine 404
+			$page_lines = file(root.'/pages/404/page.txt');
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

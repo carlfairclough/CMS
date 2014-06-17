@@ -23,13 +23,13 @@ This is a work in progress, very basic features are here, but more need to be ad
 	* Set global variables within the setup.txt file, call them using get_settings('vAriAbLe name');
 	* Set page-specific variables in the page.txt file, call them using get_content('vAriAbLe name');
 * Nest pages
-	* You can create another directory with a page.txt file within another top-level directory. This only works one level deep at the moment, and doesn't support numeric ordering or a menu function
+	* You can create another directory with a page.txt file within another top-level directory
+	* You can place another directory within this, and use the ##_ naming convention
 
 ### What needs to be done:
 
 * Error handling
 * Proper sub-pages
-	* Order using the ##_ prefix
 	* Auto build menus from the ##_ subfolders
 	* Nest infinitely
 	* Tidy up the function

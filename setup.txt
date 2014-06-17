@@ -3,13 +3,13 @@ Theme:
 Default
 ----
 Site Name:
-Carl Fairclough's CMS
+Fluff CMS
 ----
 Site Description:
 New custom CMS designed & built by Carl Fairclough
 ----
 Your Name:
-Carl Fairclough
+Fluff CMS Name
 ----
 Your City:
 Manchester
@@ -24,8 +24,8 @@ Your Twitter:
 @carlfairclough
 ----r
 Header:
-Website of Carl Fairlcough
+Fluff CMS Header
 ----
 Footer:
-Designed & built in a dark room by Carl Fairclough
+Designed & built in a dark room by Carl Fairclough.
 ----
