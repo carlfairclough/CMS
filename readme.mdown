@@ -30,11 +30,9 @@ This is a work in progress, very basic features are here, but more need to be ad
 	* Drag and drop your plugin into a directory inside /functions. These files don't depend on a naming structure, just make sure that there is a:
 		* function.php file
 		* config.txt file, which says:
-		----
 		Status:
 		On
-		----
-
+		
 ### What needs to be done:
 
 * Error handling
