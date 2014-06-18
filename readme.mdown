@@ -26,6 +26,14 @@ This is a work in progress, very basic features are here, but more need to be ad
 * Nest pages
 	* You can create another directory with a page.txt file within another top-level directory
 	* You can place another directory within this, and use the ##_ naming convention
+* Plugins
+	* Drag and drop your plugin into a directory inside /functions. These files don't depend on a naming structure, just make sure that there is a:
+		* function.php file
+		* config.txt file, which says:
+		----
+		Status:
+		On
+		----
 
 ### What needs to be done:
 
@@ -37,7 +45,6 @@ This is a work in progress, very basic features are here, but more need to be ad
 	* Create an alternate menu function that builds a gallery from compatible subdirectories
 * Make work in a folder or a subdomain
 * Web-based front end
-* Facilitate plugins & custom functions
 
 ## Want to help?
 contact@carlfairclough.me

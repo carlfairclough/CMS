@@ -8,14 +8,20 @@ Homepage Header
 Content:
 Homepage content
 ----
-Derp:
-Testing
-testing next line
-and the next line
-hello!
-lel
-----
-Other idenTiFier:
-Testing even more stuff
-cause it's confusing
+Markdown content:
+Here we're going to have some markdown content
+#markdown!
+Yep, it's markdown, and
+- it
+- works
+	- perfectly.
+		- See?
+It does some other stuff too, like *italics*, and even **bold** text.
+
+## my
+### mind
+### has
+#### been
+## blown
+# blown
 ----

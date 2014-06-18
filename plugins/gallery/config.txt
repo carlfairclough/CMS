@@ -1,0 +1,10 @@
+----
+This is the default gallery plugin for the CMS.
+You can create your own plugins by simply creating a directory within /plugins, which contains config.txt and function.php. You can include other files, but they must be included via plugin.php
+
+This must be wrapped in the section separator of four dashes. The example below is functional, and enables this plugin.
+
+----
+Status:
+On
+----

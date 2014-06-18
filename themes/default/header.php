@@ -8,7 +8,7 @@
 		<header>
 		<nav>
 			<p><?php echo get_settings('Header'); ?></p>
-			<?php echo $get_main_nav ?>
+			<?php echo $get_main_nav; ?>
 		</nav>
 		<h1><?php get_content('Template'); ?></h1>
 

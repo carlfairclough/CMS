@@ -264,48 +264,14 @@
 		}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	// convert page txt file to a string
-	$page_lines_string = implode (',', $page_lines);
+	// convert page txt file to a string – stupid identifier to stop clashes from the
+	$page_lines_string = implode ('*/1!', $page_lines);
 	// define it to call it in the function later
 	define(page_lines_string, $page_lines_string);
 
 	function get_content($term) {
 		// convert string back to array
-		$page_lines_array = explode(',' , page_lines_string);
+		$page_lines_array = explode('*/1!' , page_lines_string);
 
 		// create blank array for the output
 		$multi_lines = array();
@@ -383,6 +349,39 @@
 		echo $markdown->text(get_content($term));
 	}
 
+
+
+
+	$plugins = glob(root.'/plugins/*');
+
+	foreach ($plugins as $plugin) {
+		$config = $plugin.'/config.txt';
+		$function = $plugin.'/function.php';
+
+		
+		if (file_exists($plugin) && file_exists($config)) {
+			// find the config file stuff – is it enabled? if so, turn it on
+			$config_lines_string = implode ('*/1!', file($config));
+			$config_lines_array = explode('*/1!' , $config_lines_string);
+
+			foreach($config_lines_array as $line_num => $line) {
+
+				if ( 0 === strpos(strtolower($line), strtolower('Status')) ) {
+					$start_line_num = (int)$line_num + 1;
+					$term_line_num = (int)$line_num + 1;
+					break;
+				}
+			};
+
+			$plugin_status = trim(rtrim(implode('', ( array_slice($config_lines_array, $term_line_num, $term_line_num))), '----'));
+
+			if ($plugin_status == 'On') {
+				include_once($function);
+			} else {
+				// off
+			}
+		}
+	}
 
 
 
