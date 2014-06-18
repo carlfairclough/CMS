@@ -14,7 +14,7 @@
 
 	// FIND OUT WHAT THE CURRENT URL REQ IS
 	$request =	rtrim(strtok(strtolower($_SERVER[REQUEST_URI]), '?'), '/');
-	define (request, $request);
+	define ("REQUEST", $request);
 
 	$request_depth = count(explode('/', $request)) - 1;
 
@@ -35,11 +35,11 @@
 	$setup_lines = file($setupFile);
 	$setup_lines_string = implode (',', $setup_lines);
 	// define it to call it in the function later
-	define(setup_lines_string, $setup_lines_string);
+	define("SETUP_LINES_STRING", $setup_lines_string);
 
 	function get_settings($term) {
 		// convert string back to array
-		$setup_lines_array = explode(',' , setup_lines_string);
+		$setup_lines_array = explode(',' , SETUP_LINES_STRING);
 
 		// create blank array for the output
 		$setup_multi_lines = array();
@@ -91,10 +91,10 @@
 
 
 	// Define some vars
-	define(theme_name, $theme_name);
-	define(theme_directory, '/themes/');
-	define(root, $root);
-	define(domain, $domain);
+	define("THEME_NAME", $theme_name);
+	define("THEME_DIRECTORY", '/themes/');
+	define("ROOT", $root);
+	define("DOMAIN", $domain);
 
 
 
@@ -102,8 +102,8 @@
 
 	// Theme location on the server
 	function theme_server_loc () {
-		define(theme_server_loc, root.theme_directory.theme_name);
-		return theme_server_loc;
+		define("THEME_SERVER_LOC", ROOT.THEME_DIRECTORY.THEME_NAME);
+		return THEME_SERVER_LOC;
 	}
 
 
@@ -113,8 +113,8 @@
 
 	// Theme location url
 	function theme_url_loc () {
-		define(theme_url_loc, domain.theme_directory.theme_name);
-		return 'http://'.theme_url_loc;
+		define("THEME_URL_LOC", DOMAIN.THEME_DIRECTORY.THEME_NAME);
+		return 'http://'.THEME_URL_LOC;
 	}
 
 
@@ -123,9 +123,9 @@
 
 
 	// Get variables for page requested before including the template
-	$root_pages = glob(root.'/pages/*');
+	$root_pages = glob(ROOT.'/pages/*');
 	$request =  trim($request, '/');
-	define(request, $request);
+	define("REQUEST", $request);
 
 
 
@@ -148,7 +148,7 @@
 		}
 
 		$page_vis_name = str_replace('-', ' ', str_replace('_', ' ', $page_name));
-		$link_wrap = stripslashes('<li class="main-nav-wrap-'.$page_name.'"><a class="main-nav-link-"'.$page_name.' href="http://'.domain.'/'.$page_name.'">'.$page_vis_name.'</a></li>');
+		$link_wrap = stripslashes('<li class="main-nav-wrap-'.$page_name.'"><a class="main-nav-link-"'.$page_name.' href="http://'.DOMAIN.'/'.$page_name.'">'.$page_vis_name.'</a></li>');
 		$link_wrap = stripslashes($link_wrap);
 		$links[] = $link_wrap;
 	}
@@ -180,7 +180,7 @@
 
 		if ($page_url_count == 1) {
 			// homepage
-			$page_lines = file(root.'/pages/home/page.txt');
+			$page_lines = file(ROOT.'/pages/home/page.txt');
 			$dir_exists = true;
 
 		} else if ($page_url_count == 2) {
@@ -190,12 +190,12 @@
 				$desired_request = substr($folder, 3);
 				// page in menu
 				if ($folder[2] == '_' && is_numeric(substr($folder, 0, 2) ) && $request == $desired_request) {
-					$page_lines = file(root.'/pages/'.$folder.'/page.txt');
+					$page_lines = file(ROOT.'/pages/'.$folder.'/page.txt');
 					$dir_exists = true;
 					break;
 				// page not in menu
 				} else if ($folder == $request) {
-					$page_lines = file(root.'/pages/'.$folder.'/page.txt');
+					$page_lines = file(ROOT.'/pages/'.$folder.'/page.txt');
 					$dir_exists = true;
 					break;
 				}
@@ -203,14 +203,14 @@
 
 		} else if ($page_url_count == 3) {
 
-			$url_array = explode('/', request);
+			$url_array = explode('/', REQUEST);
 			$request = $url_array[1];
 			$request_ii = $url_array[2];
 
 			foreach ($root_pages as $root_page) {
 				$folder = basename($root_page);
 				$desired_request = substr($folder, 3);
-				$next_level_dirs = glob(root.'/pages/'.$folder.'/*');
+				$next_level_dirs = glob(ROOT.'/pages/'.$folder.'/*');
 
 				// does root folder exist?
 				if ($folder[2] == '_' && is_numeric(substr($folder, 0, 2) ) && $request == $desired_request ) {
@@ -219,11 +219,11 @@
 						$folder_ii = basename($next_level_dir);
 						$desired_request_ii = substr($folder_ii, 3);
 						if ( $folder_ii[2] == '_' && is_numeric(substr($folder_ii, 0, 2))  && $request_ii == $desired_request_ii ) {
-							$page_lines = file(root.'/pages/'.$folder.'/'.$folder_ii.'/page.txt');
+							$page_lines = file(ROOT.'/pages/'.$folder.'/'.$folder_ii.'/page.txt');
 							$dir_exists = true;
 							break;
 						} else if ($folder_ii == $request_ii){
-							$page_lines = file(root.'/pages/'.$folder.'/'.$folder_ii.'/page.txt');
+							$page_lines = file(ROOT.'/pages/'.$folder.'/'.$folder_ii.'/page.txt');
 							$dir_exists = true;
 							break;
 						}
@@ -235,11 +235,11 @@
 						$folder_ii = basename($next_level_dir);
 						$desired_request_ii = substr($folder_ii, 3);
 						if ( $folder_ii[2] == '_' && is_numeric(substr($folder_ii, 0, 2))  && $request_ii == $desired_request_ii ) {
-							$page_lines = file(root.'/pages/'.$folder.'/'.$folder_ii.'/page.txt');
+							$page_lines = file(ROOT.'/pages/'.$folder.'/'.$folder_ii.'/page.txt');
 							$dir_exists = true;
 							break;
 						} else if ($folder_ii == $request_ii){
-							$page_lines = file(root.'/pages/'.$folder.'/'.$folder_ii.'/page.txt');
+							$page_lines = file(ROOT.'/pages/'.$folder.'/'.$folder_ii.'/page.txt');
 							$dir_exists = true;
 							break;
 						}
@@ -257,21 +257,21 @@
 		// 404, folder doesnt exist / page.txt doesn't exist
 		if ($page_lines == 0 && $dir_exists) {
 			// page.txt doesn't exist
-			$page_lines = file(root.'/pages/404/page.txt');
+			$page_lines = file(ROOT.'/pages/404/page.txt');
 		} else if ($page_lines == 0) {
 			// folder does not exist, genuine 404
-			$page_lines = file(root.'/pages/404/page.txt');
+			$page_lines = file(ROOT.'/pages/404/page.txt');
 		}
 
 
 	// convert page txt file to a string – stupid identifier to stop clashes from the
 	$page_lines_string = implode ('*/1!', $page_lines);
 	// define it to call it in the function later
-	define(page_lines_string, $page_lines_string);
+	define("PAGE_LINES_STRING", $page_lines_string);
 
 	function get_content($term) {
 		// convert string back to array
-		$page_lines_array = explode('*/1!' , page_lines_string);
+		$page_lines_array = explode('*/1!' , PAGE_LINES_STRING);
 
 		// create blank array for the output
 		$multi_lines = array();
@@ -307,7 +307,7 @@
 	// is_home
 	function is_home() {
 		$return = false;
-		if (empty(request)) {
+		if (empty(REQUEST)) {
 			$return = 'true';
 		} else {
 			$return = 'false';
@@ -324,7 +324,7 @@
 		if (is_home()) {
 			$classes = 'homepage home index template-'.get_content('Template');
 		} else {
-			$classes = request.' '.get_content('Template');
+			$classes = REQUEST.' '.get_content('Template');
 		}
 		echo $classes;
 	}
@@ -352,7 +352,7 @@
 
 
 
-	$plugins = glob(root.'/plugins/*');
+	$plugins = glob(ROOT.'/plugins/*');
 
 	foreach ($plugins as $plugin) {
 		$config = $plugin.'/config.txt';
@@ -396,125 +396,5 @@
 
 	// now include the footer
 	include_once(theme_server_loc().'/footer.php');
-
-
-
-
-
-	
-
-/////////////////////////////
-////// GET THEME DIRECTORY //
-/////////////////////////////
-	
-
-
-	
-//////////////////////////////
-////// PORTFOLIO STUFF HERE //
-//////////////////////////////
-	$dir = "./pages/work/*";
-	$thumb = "main-thumb.png";
-	$thumbcount = 3;
-	$cols = 12/$thumbcount;
-	$projects = glob($dir);
-		
-
-	// FIND PROJECT NAME
-	function projectName ($file) {
-		$projectDetails = $file.'/project.md';
-		$ID = 'Name: ';
-
-		foreach (new SplFileObject($projectDetails) as $lineNumber => $lineContent) {
-		    if (FALSE !== strpos($lineContent, $ID)) {
-		    	$content = preg_replace('/^' . preg_quote($ID, '/') . '/', '', $lineContent);
-		    	break;
-		    }
-		}
-		echo $content;
-	}
-
-	function projectURL ($file) {
-		$projectDetails = $file.'/project.md';
-		$ID = 'Name: ';
-
-		foreach (new SplFileObject($projectDetails) as $lineNumber => $lineContent) {
-		    if (FALSE !== strpos($lineContent, $ID)) {
-		    	$content = preg_replace('/^' . preg_quote($ID, '/') . '/', '', $lineContent);
-		    	break;
-		    }
-		}
-
-		$content = strtolower('/work/'.str_replace(' ', '_', $content));
-		echo $content;
-	}
-
-	// FIND LINK TO PROJECT
-	function projectRole ($file) {
-		$projectDetails = $file.'/project.md';
-		$ID = 'Role: ';
-
-		foreach (new SplFileObject($projectDetails) as $lineNumber => $lineContent) {
-		    if (FALSE !== strpos($lineContent, $ID)) {
-		    	$content = preg_replace('/^' . preg_quote($ID, '/') . '/', '', $lineContent);
-		    	break;
-		    }
-		}
-		echo $content;
-	}
-
-	// FIND LINK TO PROJECT
-	function linkToProject ($file) {
-		$projectDetails = $file.'/project.md';
-		$ID = 'URL: ';
-
-		foreach (new SplFileObject($projectDetails) as $lineNumber => $lineContent) {
-		    if (FALSE !== strpos($lineContent, $ID)) {
-		    	$content = preg_replace('/^' . preg_quote($ID, '/') . '/', '', $lineContent);
-		    	break;
-		    }
-		}
-		echo $content;
-	}
-
-	// 
-
-	// FIND PROJECT THUMBNAIL
-	function projectThumb ($file) {
-		echo $file.'/main-thumb.png';
-	}
-
-
-	
-
-	if (is_home()) {
-		$confFileLoc = $root.'/pages/';
-		$confFileName = 'home.md';
-	} else {
-		$confFileLoc = $root.'/pages/'.$folder;
-		$confFileName = 'contents.md';
-	}
-
-
-	$page = $confFileLoc.'/'.$confFileName;
-
-	function show ($page, $blockName) {
-		$projectDetails = $page;
-		$ID = $blockName.': ';
-
-		foreach (new SplFileObject($projectDetails) as $lineNumber => $lineContent) {
-		    if (FALSE !== strpos($lineContent, $ID)) {
-		    	$content = preg_replace('/^' . preg_quote($ID, '/') . '/', '', $lineContent);
-		    	break;
-		    }
-		}
-		echo $content;
-	};
-
-
-///////////////////////////
-///	MISC PAGE FUNCTIONS ///
-///////////////////////////
-
 	
 ?>
