@@ -3,10 +3,13 @@ Template:
 Default
 ----
 Title:
-Homepage Header
+Homepage Header change
 ----
 Content:
 Homepage content
+----
+Post Date:
+06/11/2014
 ----
 Markdown content:
 Here we're going to have some markdown content
@@ -23,5 +26,5 @@ It does some other stuff too, like *italics*, and even **bold** text.
 ### has
 #### been
 ## blown
-# blown
+# hello
 ----

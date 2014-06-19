@@ -1,4 +1,4 @@
-# Fluff CMS
+# CMS
 (or whatever I decide to call it)
 
 This is a file based CMS with no database.

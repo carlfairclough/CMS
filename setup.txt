@@ -3,10 +3,10 @@ Theme:
 Default
 ----
 Site Name:
-Fluff CMS
+Custom CMS
 ----
 Site Description:
-New custom CMS designed & built by Carl Fairclough
+Custom CMS footer
 ----
 Your Name:
 Fluff CMS Name
@@ -24,7 +24,7 @@ Your Twitter:
 @carlfairclough
 ----r
 Header:
-Fluff CMS Header
+CMS header
 ----
 Footer:
 Designed & built in a dark room by Carl Fairclough.

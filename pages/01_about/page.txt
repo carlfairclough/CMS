@@ -5,7 +5,7 @@ Default
 Title:
 This is the about page
 ----
-Content:
+Markdown content:
 Lorem ipsum si dolor et amet, nunc habitasse et portitor demi
 this is dumb
 - testing
