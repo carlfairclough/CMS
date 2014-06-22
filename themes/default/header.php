@@ -6,6 +6,7 @@
 
 	<body class="<?php insert_body_classes(); ?>">
 		<header>
+			<?php subMenu(); ?>
 		<nav>
 			<p><?php echo get_settings('Header'); ?></p>
 			<?php echo $get_main_nav; ?>

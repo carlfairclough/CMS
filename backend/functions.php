@@ -171,6 +171,7 @@
 					$page_lines = file($directory.'/page.txt');
 					$page_lines_string = implode ('*/1!', $page_lines);
 					define("PAGE_LINES_STRING", $page_lines_string);
+					define("CURRENT_DIRECTORY", $directory);
 					$pageFound = true;
 					break;
 				}
@@ -267,7 +268,38 @@
 
 
 
+	function subMenu() {
 
+		$subPages = glob(CURRENT_DIRECTORY .'/*');
+		
+
+		foreach ($subPages as $subPage) {
+			if (is_dir($subPage)) {
+				$folder = basename($subPage);
+
+				if ( is_numeric(substr($folder, 0, 2)) && $folder[2] == '_') {
+					$new_folder = $folder;
+					$page_name = substr($new_folder, 3);
+					$url = '/'.REQUEST.'/'.$page_name;
+				} else {
+					unset($new_folder);
+					unset($page_name);
+					break;
+				}
+
+				$page_vis_name = str_replace('-', ' ', str_replace('_', ' ', $page_name));
+				$link_wrap = stripslashes('<li class="sub-nav-wrap-'.$page_name.'"><a class="sub-nav-link-"'.$page_name.' href="http://'.DOMAIN.$url.'">'.$page_vis_name.'</a></li>');
+				$link_wrap = stripslashes($link_wrap);
+				$links[] = $link_wrap;
+			}
+
+		}
+
+		if (!empty($links)) {
+			echo '<ul class="sub-nav-wrap">'.stripslashes(str_replace('","', '', rtrim(ltrim(json_encode($links),'["'), '""]'))).'</ul>';
+	
+		}
+	}
 
 
 

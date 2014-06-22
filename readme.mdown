@@ -16,6 +16,7 @@ This is a work in progress, very basic features are here, but more need to be ad
 	* 404 is served if the directory doesn't exist, or if the page.txt doesn't exist
 * Create pages that are in the main directory, i.e. http://yoursite.com/page
 	* Pages that in the main menu follow the format of 01_page-name, 02_other-page
+		* Auto build submenu with <?php submenu(); ?>
 	* All pages without the ##_ prefix will not be in the menu
 * Infinitely nest pages
 	* Can follow the same ##_ format for submenus (submenu tools to be implemented later)
@@ -36,7 +37,6 @@ This is a work in progress, very basic features are here, but more need to be ad
 
 * Error handling
 * Proper sub-pages
-	* Auto build menus from the ##_ subfolders
 	* Tidy up the function
 	* Create an alternate menu function that builds a gallery from compatible subdirectories
 * Make work in a folder or a subdomain
