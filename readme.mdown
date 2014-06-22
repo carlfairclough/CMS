@@ -17,15 +17,14 @@ This is a work in progress, very basic features are here, but more need to be ad
 * Create pages that are in the main directory, i.e. http://yoursite.com/page
 	* Pages that in the main menu follow the format of 01_page-name, 02_other-page
 	* All pages without the ##_ prefix will not be in the menu
+* Infinitely nest pages
+	* Can follow the same ##_ format for submenus (submenu tools to be implemented later)
 * Multi-line content (uses PHP_EOL)
 	* Can return content as markdown using print_markdown('vAriAbLe name')
 * Custom variables
 	* Case insensitive
 	* Set global variables within the setup.txt file, call them using get_settings('vAriAbLe name');
 	* Set page-specific variables in the page.txt file, call them using get_content('vAriAbLe name');
-* Nest pages
-	* You can create another directory with a page.txt file within another top-level directory
-	* You can place another directory within this, and use the ##_ naming convention
 * Plugins
 	* Drag and drop your plugin into a directory inside /functions. These files don't depend on a naming structure, just make sure that there is a:
 		* function.php file
@@ -38,7 +37,6 @@ This is a work in progress, very basic features are here, but more need to be ad
 * Error handling
 * Proper sub-pages
 	* Auto build menus from the ##_ subfolders
-	* Nest infinitely
 	* Tidy up the function
 	* Create an alternate menu function that builds a gallery from compatible subdirectories
 * Make work in a folder or a subdomain

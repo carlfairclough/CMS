@@ -1,26 +1,5 @@
 <?php
 
-
-
-
-
-	// FIND OUT THE SERVER ROOT PATH AND DOMAIN
-	$root = $_SERVER['DOCUMENT_ROOT'];
-	$domain = strtolower($_SERVER[HTTP_HOST]);
-
-
-
-
-
-	// FIND OUT WHAT THE CURRENT URL REQ IS
-	$request =	rtrim(strtok(strtolower($_SERVER[REQUEST_URI]), '?'), '/');
-	define ("REQUEST", $request);
-
-	$request_depth = count(explode('/', $request)) - 1;
-
-
-
-
 	$themeDirectory = '/themes/';
 
 
@@ -93,9 +72,6 @@
 	// Define some vars
 	define("THEME_NAME", $theme_name);
 	define("THEME_DIRECTORY", '/themes/');
-	define("ROOT", $root);
-	define("DOMAIN", $domain);
-
 
 
 
@@ -158,110 +134,82 @@
 
 
 
-	// get URL (supports https) 
-	function curPageURL() {
-		$pageURL = 'http';
-		if ($_SERVER["HTTPS"] == "on") {
-			$pageURL .= "s";
+
+
+
+	// URL mapping
+
+
+	function readFolder ( $path ) {
+	
+	  	// Open the folder
+	  	$rootLength = strlen(ROOT.'/pages');
+	  	$filenames = array();
+		$files = glob($path.'/*');
+		$directories = array();
+		$validUrls = array();
+
+
+		foreach ($files as $file) {
+			if (is_dir($file)) {
+				$directories[] = $file;
+			}
 		}
-	 	$pageURL .= "://";
-	 	if ($_SERVER["SERVER_PORT"] != "80") {
-	  		$pageURL = $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
-	 	} else {
-	  		$pageURL = $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
-	 	}
-	 	return $pageURL;
+
+		foreach($directories as $directory) {
+			$url = substr($directory, $rootLength);
+			$urlParts = array();
+			$urlParts = explode('/', $url);
+			$newUrl = array();
+			foreach ($urlParts as $urlPart) {
+				if (is_numeric(substr($urlPart, 0, 2)) && $urlPart[2] = '_') {
+					$newUrl[] = substr($urlPart,3);
+				} else {
+					$newUrl[] = $urlPart;
+				}
+				if ( implode ('/', $newUrl) == REQUEST ) {
+					$page_lines = file($directory.'/page.txt');
+					$page_lines_string = implode ('*/1!', $page_lines);
+					define("PAGE_LINES_STRING", $page_lines_string);
+					$pageFound = true;
+					break;
+				}
+
+				if($pageFound) {
+					break;
+				}
+			}
+			if($pageFound) {
+				break;
+			}
+			readFolder($directory);
+		}
+		return $pageFound;
 	}
 
-	$curPageURL = rtrim(ltrim(curPageURL(), '/'), '/');
-	$page_url_array = ( explode('/', $curPageURL ) );
-	$page_url_count = count($page_url_array);
+	$folderPath = ROOT.'/pages';
 
-
-		if ($page_url_count == 1) {
-			// homepage
-			$page_lines = file(ROOT.'/pages/home/page.txt');
-			$dir_exists = true;
-
-		} else if ($page_url_count == 2) {
-
-			foreach ($root_pages as $root_page) {
-				$folder = basename($root_page);
-				$desired_request = substr($folder, 3);
-				// page in menu
-				if ($folder[2] == '_' && is_numeric(substr($folder, 0, 2) ) && $request == $desired_request) {
-					$page_lines = file(ROOT.'/pages/'.$folder.'/page.txt');
-					$dir_exists = true;
-					break;
-				// page not in menu
-				} else if ($folder == $request) {
-					$page_lines = file(ROOT.'/pages/'.$folder.'/page.txt');
-					$dir_exists = true;
-					break;
-				}
-			}
-
-		} else if ($page_url_count == 3) {
-
-			$url_array = explode('/', REQUEST);
-			$request = $url_array[1];
-			$request_ii = $url_array[2];
-
-			foreach ($root_pages as $root_page) {
-				$folder = basename($root_page);
-				$desired_request = substr($folder, 3);
-				$next_level_dirs = glob(ROOT.'/pages/'.$folder.'/*');
-
-				// does root folder exist?
-				if ($folder[2] == '_' && is_numeric(substr($folder, 0, 2) ) && $request == $desired_request ) {
-					
-					foreach ($next_level_dirs as $next_level_dir) {
-						$folder_ii = basename($next_level_dir);
-						$desired_request_ii = substr($folder_ii, 3);
-						if ( $folder_ii[2] == '_' && is_numeric(substr($folder_ii, 0, 2))  && $request_ii == $desired_request_ii ) {
-							$page_lines = file(ROOT.'/pages/'.$folder.'/'.$folder_ii.'/page.txt');
-							$dir_exists = true;
-							break;
-						} else if ($folder_ii == $request_ii){
-							$page_lines = file(ROOT.'/pages/'.$folder.'/'.$folder_ii.'/page.txt');
-							$dir_exists = true;
-							break;
-						}
-					}
-
-				} else if ($folder == $request) {
-
-					foreach ($next_level_dirs as $next_level_dir) {
-						$folder_ii = basename($next_level_dir);
-						$desired_request_ii = substr($folder_ii, 3);
-						if ( $folder_ii[2] == '_' && is_numeric(substr($folder_ii, 0, 2))  && $request_ii == $desired_request_ii ) {
-							$page_lines = file(ROOT.'/pages/'.$folder.'/'.$folder_ii.'/page.txt');
-							$dir_exists = true;
-							break;
-						} else if ($folder_ii == $request_ii){
-							$page_lines = file(ROOT.'/pages/'.$folder.'/'.$folder_ii.'/page.txt');
-							$dir_exists = true;
-							break;
-						}
-					}
-				}
-			}
-
-
-		} else if ($page_url_count = '4') {
-
-		} else if ($page_url_count = '5') {
-
-		}
-
-		// 404, folder doesnt exist / page.txt doesn't exist
-		if ($page_lines == 0 && $dir_exists) {
-			// page.txt doesn't exist
+	if (empty(REQUEST)) {
+		$page_lines = file(ROOT.'/pages/home/page.txt');
+		$page_lines_string = implode ('*/1!', $page_lines);
+		define("PAGE_LINES_STRING", $page_lines_string);
+	} else {
+		readFolder($folderPath);
+		// by calling the function we load the vars
+		if (readFolder($folderPath) == false) {
 			$page_lines = file(ROOT.'/pages/404/page.txt');
-		} else if ($page_lines == 0) {
-			// folder does not exist, genuine 404
-			$page_lines = file(ROOT.'/pages/404/page.txt');
+			$page_lines_string = implode ('*/1!', $page_lines);
+			define("PAGE_LINES_STRING", $page_lines_string);
 		}
+	}
+
+
+
+
+
+
+
+
 
 
 	// convert page txt file to a string – stupid identifier to stop clashes from the
@@ -315,6 +263,13 @@
 
 		return $return;
 	};
+
+
+
+
+
+
+
 
 
 
@@ -383,6 +338,22 @@
 		}
 	}
 
+
+
+
+
+
+	// alternate url reading
+
+
+
+
+
+	
+
+
+
+	
 
 
 	
