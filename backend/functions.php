@@ -198,9 +198,14 @@
 		readFolder($folderPath);
 		// by calling the function we load the vars
 		if (readFolder($folderPath) == false) {
-			$page_lines = file(ROOT.'/pages/404/page.txt');
-			$page_lines_string = implode ('*/1!', $page_lines);
-			define("PAGE_LINES_STRING", $page_lines_string);
+			
+			$folderPath = $folderpath.'/';
+
+			if (readFolder($folderPath) == false) {
+				$page_lines = file(ROOT.'/pages/404/page.txt');
+				$page_lines_string = implode ('*/1!', $page_lines);
+				define("PAGE_LINES_STRING", $page_lines_string);
+			}
 		}
 	}
 
