@@ -36,16 +36,12 @@ This is a work in progress, very basic features are here, but more need to be ad
 ### What needs to be done:
 
 * Error handling
-* Proper sub-pages
-	* Tidy up the function
-	* Create an alternate menu function that builds a gallery from compatible subdirectories
-* Make work in a folder or a subdomain
+
+* Create an alternate menu function that builds a gallery from compatible subdirectories
+
+* stop 404 hanging
+
 * Web-based front end
 
 ## Want to help?
 contact@carlfairclough.me
-
-## Copyright
-
-© 2014 Carl Fairclough
-<http://carlfairclough.me>
